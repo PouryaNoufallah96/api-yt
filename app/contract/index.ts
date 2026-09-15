@@ -1,13 +1,11 @@
-import { implementer } from "./implementer";
 import { createIssue } from "./issue";
 import { getProject } from "./project";
-import { rateLimit } from "./rate-limit";
 
-export const router = implementer.use(rateLimit).router({
+export const contract = {
   project: {
     get: getProject,
   },
   issue: {
     create: createIssue,
   },
-});
+};
