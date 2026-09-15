@@ -1,10 +1,8 @@
-import { contract } from '@/app/contract'
 import { router } from '@/app/router'
 import { SmartCoercionHandlerPlugin } from '@orpc/json-schema'
 import { OpenAPIGenerator } from '@orpc/openapi'
 import { OpenAPIHandler } from '@orpc/openapi/fetch'
 import { OpenAPIReferenceHandlerPlugin } from '@orpc/openapi/plugins'
-import { RateLimitHandlerPlugin } from '@orpc/ratelimit'
 import { onError } from '@orpc/server'
 import { ZodToJsonSchemaConverter } from '@orpc/zod'
 
@@ -21,12 +19,11 @@ const handler = new OpenAPIHandler(router, {
     }),
   ],
   plugins: [
-    new RateLimitHandlerPlugin(),
     new SmartCoercionHandlerPlugin({
       converters: [zodToJsonSchema],
     }),
     new OpenAPIReferenceHandlerPlugin({
-      spec: () => generator.generate(contract, {
+      spec: () => generator.generate(router, {
         base: {
           info: {
             title: 'Project API',

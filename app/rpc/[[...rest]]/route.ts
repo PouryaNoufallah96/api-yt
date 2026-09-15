@@ -1,5 +1,4 @@
 import { router } from '@/app/router'
-import { RateLimitHandlerPlugin } from '@orpc/ratelimit'
 import { onError } from '@orpc/server'
 import { RPCHandler } from '@orpc/server/fetch'
 
@@ -8,9 +7,6 @@ const handler = new RPCHandler(router, {
     onError((error) => {
       console.error(error)
     }),
-  ],
-  plugins: [
-    new RateLimitHandlerPlugin(),
   ],
 })
 
